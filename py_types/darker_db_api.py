@@ -26,9 +26,9 @@ class MarketQueryParams(BaseModel):
     item_id: Optional[str] = Field(None, alias="item_id")
     item: Optional[str] = None
     archetype: Optional[str] = None
-    rarity: Optional[ItemRarity] = None
+    rarity: Optional[str] = None
     price: Optional[str] = None
-    price_per_unit: Optional[str] = None
+    price_per_unit: Optional[float] = None
     seller: Optional[str] = None
     quantity: Optional[str] = None
     from_: Optional[datetime] = Field(None, alias="from")
@@ -46,6 +46,28 @@ class MarketQueryParams(BaseModel):
         "populate_by_name": True,
     }
 
+    def to_query_params(self) -> dict[str, Any]:
+        """Convert model to query params, handling nested primary/secondary attributes.
+        
+        Transforms nested dicts like secondary={"strength": "2:3"} into 
+        secondary[strength]=2:3 format expected by the API.
+        """
+        params = self.model_dump(by_alias=True, exclude_none=True)
+        
+        # Handle primary attributes
+        if "primary" in params and params["primary"]:
+            primary_dict = params.pop("primary")
+            for key, value in primary_dict.items():
+                params[f"primary[{key}]"] = value
+        
+        # Handle secondary attributes
+        if "secondary" in params and params["secondary"]:
+            secondary_dict = params.pop("secondary")
+            for key, value in secondary_dict.items():
+                params[f"secondary[{key}]"] = value
+        
+        return params
+
 
 class MarketPagination(BaseModel):
     count: int
@@ -61,7 +83,7 @@ class MarketItem(BaseModel):
     archetype: str
     rarity: ItemRarity
     price: int
-    price_per_unit: int
+    price_per_unit: float
     quantity: int
     created_at: datetime
     expires_at: datetime

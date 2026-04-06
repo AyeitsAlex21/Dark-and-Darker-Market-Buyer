@@ -1,28 +1,23 @@
 import os
 import requests
 
-from py_types.darker_db_api import MarketResponse
+from py_types.darker_db_api import MarketResponse, MarketQueryParams
 
-DARKER_DB_URI = os.getenv("DARKER_DB_URI")
+DARKER_DB_URI = "https://api.darkerdb.com/" # os.getenv("DARKER_DB_URI")
 
 
 class DarkerDBApi:
 
-    def __init__(self):
-        self.darker_db_uri = DARKER_DB_URI
-
-    def get_market(self, params: dict) -> MarketResponse:
-        request_params = {
-            "has_sold": False,
-        }
-        request_params.update(params or {})
+    def get_market(self, params: MarketQueryParams) -> MarketResponse:
 
         response = requests.get(
-            f'{self.darker_db_uri}v1/market',
-            params=request_params
+            f'{DARKER_DB_URI}v1/market',
+            params=params.to_query_params(),
         )
 
+        print(params.to_query_params())
+
         if response.status_code != 200:
-            raise Exception(f"v1/market {request_params} responded with {response.status_code}")
+            raise Exception(f"v1/market {params} responded with {response.status_code}")
 
         return MarketResponse.model_validate(response.json())
