@@ -1,0 +1,9 @@
+v1/items/attributes
+    - list of all attributes in game plus aliases
+
+v1/items
+    - lists all items in game
+
+v1/market
+    - lists
+    - v1/market?secondary[additional_magical_damage]=1
