@@ -22,11 +22,23 @@ class BuyItemsService():
 
         if len(response_json["body"]) != 1:
             raise Exception(f"v1/item {item} responded with {response_json}")
-    
+        
+        for random_stat in item.secondary:
+            actual_min = response_json["body"][0][f"secondary_min_{random_stat}"]
+            actual_max = response_json["body"][0][f"secondary_max_{random_stat}"]
+
+            desired_min, desired_max = item.get_secondary_ranges(item.secondary[random_stat])
+
+            if desired_min < actual_min or desired_max > actual_max:
+                raise Exception(f"{item.item} {random_stat} range {desired_min}:{desired_max} is out of bounds ({actual_min}:{actual_max})")
+
     def attempt_to_buy_items(self) -> list[MarketQueryParams]:
         bought_items = []
 
         for item in self.items:
+            item.has_sold = 0
+            item.has_expired = 0
+
             cand_items = DarkerDBApi().get_market(item).body
 
             if len(cand_items) == 0:
@@ -38,8 +50,8 @@ class BuyItemsService():
 
         return bought_items
 
-    def _attempt_to_buy_item(self, item: MarketQueryParams, cand_items: list[MarketItem]) -> bool:
-        cheapest = cand_items[0]
-        print(f"Attempting to buy {cheapest.item} for {cheapest.price} gold")
+    def _attempt_to_buy_item(self, item: MarketQueryParams, potential_listings: list[MarketItem]) -> bool:
+        for listing in potential_listings:
+            print(f"Attempting to buy {listing.item} for {listing.price} gold")
         # Assume buy succeeds for now
         return True

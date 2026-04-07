@@ -5,9 +5,9 @@ items = [
         item="Lightfoot Boots",
         rarity="Epic",
         secondary={
-            "strength": "3",
-            "dexterity": "3",
-            "vigor": "3"
+            "knowledge": "3",
+            "will": "3",
+            "agility": "3"
         },
         price="1:50000"
     )
