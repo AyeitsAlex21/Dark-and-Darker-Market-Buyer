@@ -2,7 +2,7 @@
 from urllib import response
 
 from .darker_db_api import DarkerDBApi
-from py_types.darker_db_api import MarketQueryParams, MarketItem, ItemQueryParams
+from py_types.darker_db_api import MarketQueryParams, MarketItem, ItemQueryParams, ItemRarity
 
 class BuyItemsService():
     def __init__(self, items: list[MarketQueryParams]):
@@ -19,6 +19,9 @@ class BuyItemsService():
         )
 
         response_json = DarkerDBApi().get_item(req_item)
+
+        if len(item.secondary) > ItemRarity[item.rarity].get_num_of_secondary_stats():
+            raise Exception(f"{item.item} has {len(item.secondary)} requested secondary stats but rarity {item.rarity} can have max {ItemRarity[item.rarity].get_num_of_secondary_stats()}")
 
         if len(response_json["body"]) != 1:
             raise Exception(f"v1/item {item} responded with {response_json}")

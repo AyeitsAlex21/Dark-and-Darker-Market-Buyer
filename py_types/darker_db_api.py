@@ -16,6 +16,20 @@ class ItemRarity(str, Enum):
     Legendary = 6001
     Unique = 7001
     Artifact = 8001
+    
+    def get_num_of_secondary_stats(self) -> int:
+        reference = {
+            ItemRarity.Poor: 0,
+            ItemRarity.Common: 0,
+            ItemRarity.Uncommon: 1,
+            ItemRarity.Rare: 2,
+            ItemRarity.Epic: 3,
+            ItemRarity.Legendary: 4,
+            ItemRarity.Unique: 1,
+            ItemRarity.Artifact: 5,
+        }
+
+        return reference[self]
 
 
 class MarketOrder(str, Enum):
