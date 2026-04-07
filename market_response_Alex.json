@@ -1,0 +1,37 @@
+{
+  "source_file": "Alex",
+  "responses": [
+    {
+      "version": "1.0.7",
+      "status": "OK",
+      "code": 200,
+      "query_time": 0.048,
+      "query_date": "2026-04-06 02:16:52+00:00",
+      "stage": "production",
+      "build": "0.15.133.8449",
+      "patch": 112,
+      "meta": {
+        "method": "GET",
+        "request": "https://api.darkerdb.com/v1/market?item=Lightfoot+Bootss&rarity=Epic&order=asc&limit=25&secondary%5Bknowledge%5D=3&secondary%5Bwill%5D=3&secondary%5Bagility%5D=3",
+        "query": {
+          "item": "Lightfoot Bootss",
+          "rarity": "Epic",
+          "order": "asc",
+          "limit": 25,
+          "secondary": {
+            "knowledge": 3,
+            "will": 3,
+            "agility": 3
+          }
+        },
+        "params": []
+      },
+      "pagination": {
+        "count": 0,
+        "limit": 25,
+        "cursor": 0
+      },
+      "body": []
+    }
+  ]
+}

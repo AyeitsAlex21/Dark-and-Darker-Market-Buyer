@@ -24,10 +24,10 @@ class MarketOrder(str, Enum):
 
 class MarketQueryParams(BaseModel):
     item_id: Optional[str] = Field(None, alias="item_id")
-    item: Optional[str] = None
+    item: str = None
     archetype: Optional[str] = None
-    rarity: Optional[str] = None
-    price: Optional[str] = None
+    rarity: str = None
+    price: str = None
     price_per_unit: Optional[float] = None
     seller: Optional[str] = None
     quantity: Optional[str] = None
