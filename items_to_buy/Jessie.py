@@ -10,5 +10,14 @@ items = [
             "agility": "3"
         },
         price="1:50000"
+    ),
+    MarketQueryParams(
+        item="Armet",
+        rarity="Rare",
+        secondary={
+            "agility": "3",
+            "additional_armor_ratin": "11"
+        },
+        price="1:50000"
     )
 ]

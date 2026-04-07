@@ -24,6 +24,9 @@ class BuyItemsService():
             raise Exception(f"v1/item {item} responded with {response_json}")
         
         for random_stat in item.secondary:
+            if f"secondary_min_{random_stat}" not in response_json["body"][0]:
+                raise Exception(f"{item.item} does not have {random_stat} as a secondary stat")
+
             actual_min = response_json["body"][0][f"secondary_min_{random_stat}"]
             actual_max = response_json["body"][0][f"secondary_max_{random_stat}"]
 

@@ -5,8 +5,8 @@ items = [
         item="Wizard Shoes",
         rarity="Epic",
         secondary={
-            "knowledge": "3",
-            "will": "3",
+            "knowledge": "1:3",
+            "will": "1:3",
             "agility": "3"
         },
         price="1:50000"
