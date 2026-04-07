@@ -33,12 +33,12 @@ class BuyItemsService():
                 continue
 
             cand_items.sort(key=lambda x: x.price, reverse=False)
-            if self._attempt_to_buy_item(cand_items):
+            if self._attempt_to_buy_item(item, cand_items):
                 bought_items.append(item)
 
         return bought_items
 
-    def _attempt_to_buy_item(self, cand_items: list[MarketItem]) -> bool:
+    def _attempt_to_buy_item(self, item: MarketQueryParams, cand_items: list[MarketItem]) -> bool:
         cheapest = cand_items[0]
         print(f"Attempting to buy {cheapest.item} for {cheapest.price} gold")
         # Assume buy succeeds for now
