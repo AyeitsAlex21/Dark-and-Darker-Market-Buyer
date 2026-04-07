@@ -22,6 +22,18 @@ class MarketOrder(str, Enum):
     desc = "desc"
 
 
+class ItemQueryParams(BaseModel):
+    item_id: Optional[str] = Field(None, alias="item_id")
+    name: Optional[str] = None
+    rarity: Optional[str] = None
+
+    model_config = {
+        "populate_by_name": True,
+    }
+
+    def to_query_params(self) -> dict[str, Any]:
+        return self.model_dump(by_alias=True, exclude_none=True)
+
 class MarketQueryParams(BaseModel):
     item_id: Optional[str] = Field(None, alias="item_id")
     item: str = None

@@ -2,7 +2,7 @@ from py_types.darker_db_api import MarketQueryParams
 
 items = [
     MarketQueryParams(
-        item="Lightfoot Bootss",
+        item="Lightfoot Boots",
         rarity="Epic",
         secondary={
             "knowledge": "3",
